@@ -1,7 +1,6 @@
 const BOARD_SIZE = 4;
 let board;
 
-// Initialisation du jeu
 function initGame() {
   board = Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(0));
   addRandomTile();
@@ -9,7 +8,6 @@ function initGame() {
   renderBoard();
 }
 
-// Ajouter une tuile aléatoire (2 ou 4)
 function addRandomTile() {
   const emptyTiles = [];
   for (let row = 0; row < BOARD_SIZE; row++) {
@@ -25,7 +23,6 @@ function addRandomTile() {
   }
 }
 
-// Afficher le plateau de jeu
 function renderBoard() {
   const gameBoard = document.getElementById('game-board');
   gameBoard.innerHTML = '';
@@ -43,7 +40,6 @@ function renderBoard() {
   }
 }
 
-// Gérer les mouvements
 function move(direction) {
   let moved = false;
   const oldBoard = JSON.parse(JSON.stringify(board));
@@ -88,7 +84,6 @@ function move(direction) {
   }
 }
 
-// Fonction pour glisser et fusionner les tuiles
 function slideAndMerge(row) {
   let filteredRow = row.filter(val => val !== 0);
   for (let i = 0; i < filteredRow.length - 1; i++) {
@@ -104,7 +99,6 @@ function slideAndMerge(row) {
   return filteredRow;
 }
 
-// Vérifier si le jeu est terminé
 function checkGameOver() {
   for (let row = 0; row < BOARD_SIZE; row++) {
     for (let col = 0; col < BOARD_SIZE; col++) {
@@ -122,29 +116,13 @@ function checkGameOver() {
   alert('Game Over!');
 }
 
-// Gérer les touches du clavier
-document.addEventListener('keydown', (event) => {
-  switch (event.key) {
-    case 'ArrowLeft':
-      move('left');
-      break;
-    case 'ArrowRight':
-      move('right');
-      break;
-    case 'ArrowUp':
-      move('up');
-      break;
-    case 'ArrowDown':
-      move('down');
-      break;
-  }
+// Attendre que le DOM soit chargé avant d'ajouter les écouteurs
+document.addEventListener('DOMContentLoaded', () => {
+  // Ajouter les écouteurs d'événements pour les boutons du pavé virtuel
+  document.getElementById('arrow-up').addEventListener('click', () => move('up'));
+  document.getElementById('arrow-down').addEventListener('click', () => move('down'));
+  document.getElementById('arrow-left').addEventListener('click', () => move('left'));
+  document.getElementById('arrow-right').addEventListener('click', () => move('right'));
 });
 
-// Ajouter les écouteurs d'événements pour les boutons du pavé virtuel
-document.getElementById('arrow-up').addEventListener('click', () => move('up'));
-document.getElementById('arrow-down').addEventListener('click', () => move('down'));
-document.getElementById('arrow-left').addEventListener('click', () => move('left'));
-document.getElementById('arrow-right').addEventListener('click', () => move('right'));
-
-// Démarrer le jeu
 initGame();
