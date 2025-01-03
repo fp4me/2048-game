@@ -140,5 +140,11 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+// Ajouter les écouteurs d'événements pour les boutons du pavé virtuel
+document.getElementById('arrow-up').addEventListener('click', () => move('up'));
+document.getElementById('arrow-down').addEventListener('click', () => move('down'));
+document.getElementById('arrow-left').addEventListener('click', () => move('left'));
+document.getElementById('arrow-right').addEventListener('click', () => move('right'));
+
 // Démarrer le jeu
 initGame();
